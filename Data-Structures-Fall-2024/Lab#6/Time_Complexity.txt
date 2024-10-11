@@ -1,0 +1,9 @@
+Task#1 -> enqueue(), dequeue(), front(), and rear() are all 𝑂(1) operations and size() is 𝑂(𝑛).
+Task#2 -> The time complexity of special_arrangement() is O(n).
+Task#3 -> 
+enqueue() & dequeue():  -> Both of these operations take O(1).
+sortQueueAscending():   -> It has two nested loops, Therefore, the time complexity of sortQueueAscending() is O(n^2).
+mergeTwoQueues():       -> This function merges two sorted queues. It compares the front elements of both queues and enqueues the smaller one until one of the queues is empty. Since each comparison takes O(1) and there are n elements in total between the two queues, the time complexity is O(n).
+mergeKQueues():         -> This function merges K sorted queues. The initial merging step merges the first two queues in 𝑂(𝑛1+𝑛2), then merges the result with the next queue, and so on.
+
+The overall complexity for merging K sorted queues is O(Kn), where K is the number of queues and n is the total number of elements across all queues.
