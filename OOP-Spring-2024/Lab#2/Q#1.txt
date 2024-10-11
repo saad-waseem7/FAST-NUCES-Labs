@@ -1,0 +1,36 @@
+Question no.1: Identifying Logical and Syntax Errors
+
+a.
+int main() {
+int *myPtr = new int;
+int *yourPtr;
+*myPtr = 5;
+yourPtr = myPtr;
+std::cout &lt;&lt; *yourPtr &lt;&lt; std::endl;
+delete yourPtr;
+std::cout &lt;&lt; *myPtr &lt;&lt; std::endl;
+return 0; }
+
+Answer of Part (a):
+There is no Syntax problem but a Logical problem in the code is that after deleting the
+memory pointed to by yourPtr, the program still tries to use the memory pointed to by
+myPtr, which is pointing to the same memory location. But the memory has been
+deleted. To fix this issue, we should set yourPtr to nullptr after deleting the memory it
+points to. This way, There will be no undefined behavior.
+
+b.
+int main() {
+int *velocity = new int;
+double *travelTime;
+double *distance;
+&amp;velocity = 65;
+*travelTime = 8.5;
+distance = new double;
+distance = (*velocity) * (*travelTime);
+std::cout &lt;&lt; *distance &lt;&lt; std::endl; }
+
+Answer of Part (b):
+The code tries to assign a value directly to the address of a pointer, declares another
+pointer without initializing it, and assigns a calculated value directly to a pointer instead
+of storing it in memory. To fix it, we need to assign values properly, initialize all pointers,
+perform calculations correctly, and free up memory after use.
