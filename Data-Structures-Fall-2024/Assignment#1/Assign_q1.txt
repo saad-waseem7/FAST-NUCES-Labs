@@ -1,0 +1,12 @@
+1.Time Complexity: O(N²)                      -> Two nested loops run N times each, leading to N * N iterations.
+2.Time Complexity: O(N)                       -> Outer loop runs log₂(N) times, inner loop runs proportionally to i, resulting in linear complexity.
+3.Time Complexity: O(N³)                      -> Three nested loops run N times each, leading to N * N * N iterations.
+4.Time Complexity: O(N³)                      -> Triple loops result in cubic time complexity.
+5.Time Complexity: O(log²(N))                 -> Both loops run logarithmically, resulting in log₂(N) * log₂(N) iterations.
+6.Time Complexity: O(N² log(N))               -> Outer loop runs N²/2 times, inner loop runs log₂(N²) times.
+7.Time Complexity: O(N³)                      -> Inner loop runs i² times, resulting in cubic time complexity.
+8.Time Complexity: O(log²(N²)) = O(4log²(N))  -> Both loops run logarithmically.
+9.Time Complexity: O(N³)                      -> Similar to snippet 4, triple loops lead to cubic complexity.
+10.Time Complexity: O(log²(N))                -> Outer loop runs log₂(N) times, inner loop runs logarithmically up to i.
+11.Time Complexity: O(log(N²)) = O(2log(N))   -> Loop runs logarithmically up to N².
+12.Time Complexity: O(log(N))                 -> Outer loop runs log₂(√N), inner loop is constant at 1,000,000 iterations.
