@@ -1,0 +1,21 @@
+Name,Department,Join Date,Salary,Location
+Alice,HR,2020-02-01,"$68,000",New York
+Charlie,Finance,2019-05-15,"$82,000",Chicago
+David,IT,2021-09-10,"$67,500",San Francisco
+Frank,Marketing,2018-11-30,"$75,000",Los Angeles
+Henry,Sales,2020-12-10,,Boston
+Julia,Operations,2019-01-20,"$55,000",Seattle
+Ivy,IT,2018-03-10,"$60,000",Austin
+Kevin,Finance,2020-06-30,,Denver
+Laura,Marketing,2019-12-12,"$62,000",Miami
+Nancy,HR,2021-07-01,"$65,000",Dallas
+Oscar,IT,2017-05-18,"$72,500",San Diego
+Paul,Sales,2022-03-21,"$85,000",Orlando
+Quincy,Finance,2020-08-14,,Houston
+Rachel,HR,2018-10-23,"$70,000",Detroit
+Steve,Marketing,2019-06-11,"$77,000",Portland
+Tina,IT,2020-09-19,"$64,000",Phoenix
+Uma,Sales,2019-02-27,,Baltimore
+Victor,HR,2018-12-05,"$58,000",Atlanta
+Wendy,Operations,2021-04-06,"$59,000",Nashville
+Xander,Finance,2019-03-08,"$80,000",Cleveland
