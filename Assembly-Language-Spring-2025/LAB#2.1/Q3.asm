@@ -1,0 +1,9 @@
+[org 0x0100]
+
+mov ax, [0x0025]
+mov word[0x0FFF], ax
+mov bx, [0x0010]
+mov word[0x002F], bx
+
+mov ax, 0x4c00
+int 0x21
