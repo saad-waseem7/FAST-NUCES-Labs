@@ -13,7 +13,6 @@ start:
     int 0x21
 
 ; ----------------- Subroutine: Find String Length -----------------
-
 StrLength:
     mov cl, 0      
 
