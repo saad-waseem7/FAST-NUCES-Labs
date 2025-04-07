@@ -48,39 +48,39 @@ amount int not null,
 transType int foreign key references TransactionType(transTypeID)
 )
 
-INSERT dbo.UserType (UserTypeID, name) VALUES (1, N'Silver')
-INSERT dbo.UserType (UserTypeID, name) VALUES (2, N'ld')
-INSERT dbo.UserType (UserTypeID, name) VALUES (3, N'Bronze')
-INSERT dbo.UserType (UserTypeID, name) VALUES (4, N'Common')
-INSERT dbo._User (UserId, name, UserType, phoneNum, city) VALUES (1, N'Ali', 2, N'03036067000', N'Narowal')
-INSERT dbo._User (UserId, name, UserType, phoneNum, city) VALUES (2, N'Ahmed', 1, N'03036047000', N'Lahore')
-INSERT dbo._User (UserId, name, UserType, phoneNum, city) VALUES (3, N'Aqeel', 3, N'03036063000', N'Karachi')
-INSERT dbo._User (UserId, name, UserType, phoneNum, city) VALUES (4, N'Usman', 4, N'03036062000', N'Sialkot')
-INSERT dbo._User (UserId, name, UserType, phoneNum, city) VALUES (5, N'Hafeez', 2, N'03036061000', N'Lahore')
+insert dbo.UserType (UserTypeID, name) values (1, N'Silver')
+insert dbo.UserType (UserTypeID, name) values (2, N'ld')
+insert dbo.UserType (UserTypeID, name) values (3, N'Bronze')
+insert dbo.UserType (UserTypeID, name) values (4, N'Common')
+insert dbo._User (UserId, name, UserType, phoneNum, city) values (1, N'Ali', 2, N'03036067000', N'Narowal')
+insert dbo._User (UserId, name, UserType, phoneNum, city) values (2, N'Ahmed', 1, N'03036047000', N'Lahore')
+insert dbo._User (UserId, name, UserType, phoneNum, city) values (3, N'Aqeel', 3, N'03036063000', N'Karachi')
+insert dbo._User (UserId, name, UserType, phoneNum, city) values (4, N'Usman', 4, N'03036062000', N'Sialkot')
+insert dbo._User (UserId, name, UserType, phoneNum, city) values (5, N'Hafeez', 2, N'03036061000', N'Lahore')
 
-INSERT dbo.CardType (cardTypeID, name, description) VALUES (1, N'Debit', N'Spend Now, Pay Now')
-INSERT dbo.CardType (cardTypeID, name, description) VALUES (2, N'Credit', N'Spend Now, Pay later')
-INSERT dbo.CardType (cardTypeID, name, description) VALUES (3, N'Gift', N'Enjoy')
-INSERT dbo._Card (cardNum, cardTypeID, PIN, expireDate, balance) VALUES (N'1324327436569', 3, N'1770', CAST(N'2022-07-01' AS Date), 43025.31)
-INSERT dbo._Card (cardNum, cardTypeID, PIN, expireDate, balance) VALUES (N'2324325423336', 3, N'0234', CAST(N'2020-03-02' AS Date), 14425.62)
-INSERT dbo._Card (cardNum, cardTypeID, PIN, expireDate, balance) VALUES (N'2324325436566', 1, N'1234', CAST(N'2019-02-06' AS Date), 34325.52)
-INSERT dbo._Card (cardNum, cardTypeID, PIN, expireDate, balance) VALUES (N'2324325666456', 2, N'1200', CAST(N'2021-02-05' AS Date), 24325.3)
-INSERT dbo._Card (cardNum, cardTypeID, PIN, expireDate, balance) VALUES (N'2343243253436', 2, N'0034', CAST(N'2020-09-02' AS Date), 34025.12)
+insert dbo.CardType (cardTypeID, name, description) values (1, N'Debit', N'Spend Now, Pay Now')
+insert dbo.CardType (cardTypeID, name, description) values (2, N'Credit', N'Spend Now, Pay later')
+insert dbo.CardType (cardTypeID, name, description) values (3, N'Gift', N'Enjoy')
+insert dbo._Card (cardNum, cardTypeID, PIN, expireDate, balance) values (N'1324327436569', 3, N'1770', CAST(N'2022-07-01' as Date), 43025.31)
+insert dbo._Card (cardNum, cardTypeID, PIN, expireDate, balance) values (N'2324325423336', 3, N'0234', CAST(N'2020-03-02' as Date), 14425.62)
+insert dbo._Card (cardNum, cardTypeID, PIN, expireDate, balance) values (N'2324325436566', 1, N'1234', CAST(N'2019-02-06' as Date), 34325.52)
+insert dbo._Card (cardNum, cardTypeID, PIN, expireDate, balance) values (N'2324325666456', 2, N'1200', CAST(N'2021-02-05' as Date), 24325.3)
+insert dbo._Card (cardNum, cardTypeID, PIN, expireDate, balance) values (N'2343243253436', 2, N'0034', CAST(N'2020-09-02' as Date), 34025.12)
 
-INSERT dbo._UserCard (UserId, cardNum) VALUES (1, N'1324327436569')
-INSERT dbo._UserCard (UserId, cardNum) VALUES (1, N'2343243253436')
-INSERT dbo._UserCard (UserId, cardNum) VALUES (2, N'2324325423336')
-INSERT dbo._UserCard (UserId, cardNum) VALUES (3, N'2324325436566')
-INSERT dbo.TransactionType (transTypeID, typeName, description) VALUES (1, N'Withdraw', NULL)
-INSERT dbo.TransactionType (transTypeID, typeName, description) VALUES (2, N'Deposit', NULL)
-INSERT dbo.TransactionType (transTypeID, typeName, description) VALUES (3, N'ScheduledDeposit', NULL)
-INSERT dbo.TransactionType (transTypeID, typeName, description) VALUES (4, N'Failed', NULL)
+insert dbo._UserCard (UserId, cardNum) values (1, N'1324327436569')
+insert dbo._UserCard (UserId, cardNum) values (1, N'2343243253436')
+insert dbo._UserCard (UserId, cardNum) values (2, N'2324325423336')
+insert dbo._UserCard (UserId, cardNum) values (3, N'2324325436566')
+insert dbo.TransactionType (transTypeID, typeName, description) values (1, N'Withdraw', null)
+insert dbo.TransactionType (transTypeID, typeName, description) values (2, N'Deposit', null)
+insert dbo.TransactionType (transTypeID, typeName, description) values (3, N'ScheduledDeposit', null)
+insert dbo.TransactionType (transTypeID, typeName, description) values (4, N'Failed', null)
 
-INSERT dbo._Transaction (transId, transDate, cardNum, amount, transType) VALUES (1, CAST(N'2017-02-02' AS Date), N'1324327436569', 500, 1)
-INSERT dbo._Transaction (transId, transDate, cardNum, amount, transType) VALUES (2, CAST(N'2018-02-03' AS Date), N'2343243253436', 3000, 3)
-INSERT dbo._Transaction (transId, transDate, cardNum, amount, transType) VALUES (3, CAST(N'2017-05-06' AS Date), N'2324325436566', 2500, 2)
-INSERT dbo._Transaction (transId, transDate, cardNum, amount, transType) VALUES (4, CAST(N'2016-09-09' AS Date), N'2324325436566', 2000, 1)
-INSERT dbo._Transaction (transId, transDate, cardNum, amount, transType) VALUES (5, CAST(N'2015-02-10' AS Date), N'2324325423336', 6000, 4)
+insert dbo._Transaction (transId, transDate, cardNum, amount, transType) values (1, CAST(N'2017-02-02' as Date), N'1324327436569', 500, 1)
+insert dbo._Transaction (transId, transDate, cardNum, amount, transType) values (2, CAST(N'2018-02-03' as Date), N'2343243253436', 3000, 3)
+insert dbo._Transaction (transId, transDate, cardNum, amount, transType) values (3, CAST(N'2017-05-06' as Date), N'2324325436566', 2500, 2)
+insert dbo._Transaction (transId, transDate, cardNum, amount, transType) values (4, CAST(N'2016-09-09' as Date), N'2324325436566', 2000, 1)
+insert dbo._Transaction (transId, transDate, cardNum, amount, transType) values (5, CAST(N'2015-02-10' as Date), N'2324325423336', 6000, 4)
 
 Select * from UserType
 Select * from _User
@@ -137,7 +137,7 @@ print @numcards
 
 
 -- 6.Create a procedure Login that takes card number, PIN and returns the status in an output parameter. 
--- @status =1 if card number and PIN is valid and @status=0 otherwise.(Hint: IF/ELSE).
+-- (@status =1 if card number and PIN is valid and @status=0 otherwise.(Hint: IF/ELSE).)
 
 create procedure login
 @cardnum varchar(20), @pin varchar(4), @status int output as
@@ -167,30 +167,33 @@ exec updatepin '1324327436569', '1770', '1111'
 -- Table if the transaction is successful with TransType =1(successful Transaction) and next transID (calculate the max transID and increment transID, then insert in table). If the transaction fails
 -- insert TransType=4 (Failed Transaction). Update the balance against the card number accordingly.
 
-create procedure withdraw
-@cardnum varchar(20), @pin varchar(4), @amount int as
-begin declare @status int, @balance float, @nexttransid int
-exec login @cardnum, @pin, @status output
-if @status = 1 begin
-select @balance = balance from _Card where cardNum = @cardnum
-if @balance >= @amount begin
-update _Card set balance = balance - @amount where cardNum = @cardnum
-select @nexttransid = max(transId) + 1 from _Transaction
+create procedure withdraw @cardnum varchar(20),
+@pin varchar(4),
+@amount int as begin
+declare @status int, @balance float, @nexttransid int exec login @cardnum, @pin, @status output if @status = 1 begin
+select @balance = balance
+from _Card
+where cardNum = @cardnum if @balance >= @amount begin
+update _Card
+set balance = balance - @amount
+where cardNum = @cardnum
+select @nexttransid = max(transId) + 1
+from _Transaction
 insert into _Transaction (transId, transDate, cardNum, amount, transType)
-values (@nexttransid, cast(getdate() as date), @cardnum, @amount, 1)
-print 'Withdrawal Successful' end
-else begin
-select @nexttransid = max(transId) + 1 from _Transaction;
-insert into _Transaction (transId, transDate, cardNum, amount, transType)
-values (@nexttransid, cast(getdate() as date), @cardnum, @amount, 4)
-print 'Insufficient Balance' end
+values (@nexttransid, cast(getdate() as date), @cardnum, @amount, 1) print 'Withdrawal Successful'
 end
 else begin
-select @nexttransid = max(transId) + 1 from _Transaction;
+select @nexttransid = max(transId) + 1
+from _Transaction;
 insert into _Transaction (transId, transDate, cardNum, amount, transType)
-values (@nexttransid, cast(getdate() as date), @cardnum, @amount, 4)
-print 'Invalid Card Details'; end
+values (@nexttransid, cast(getdate() as date), @cardnum, @amount, 4) print 'Insufficient Balance'
 end
-go
-
-exec withdraw '1324327436569', '1770', 1000
+end
+else begin
+select @nexttransid = max(transId) + 1
+from _Transaction;
+insert into _Transaction (transId, transDate, cardNum, amount, transType)
+values (@nexttransid, cast(getdate() as date), @cardnum, @amount, 4) print 'Invalid Card Details';
+end
+end
+go exec withdraw '1324327436569','1770',1000
