@@ -128,3 +128,122 @@ from _Card
 declare @MinBalance float;
 EXEC sp_GetMinimumBalance @MinBalance OUTPUT;
 print @MinBalance
+
+-- 5.Create a procedure that takes user name, id and returns no. of cards of that user in an output parameter.
+
+create procedure getnumcardsforuser @name varchar(20),
+@id int,
+@numcards int output as begin
+select @numcards = count(uc.cardNum)
+from _UserCard uc
+    join _User u on u.UserId = uc.UserId
+where u.name = @name
+    and u.UserId = @id
+group by uc.UserId
+end
+declare @numcards int;
+exec getnumcardsforuser 'Ali',
+1,
+@numcards output print @numcards
+
+-- 6.Create a procedure Login that takes card number, PIN and returns the status in an output parameter. 
+-- (@status =1 if card number and PIN is valid and @status=0 otherwise.(Hint: IF/ELSE).)
+
+create procedure login @cardnum varchar(20),
+@pin varchar(4),
+@status int output as begin if exists (
+    select *
+    from _Card c
+    where @cardnum = c.cardNum
+        and @pin = c.PIN
+)
+set @status = 1;
+else
+set @status = 0;
+end
+declare @status int;
+exec login '1324327436569',
+'1770',
+@status output print @status
+
+-- 7.Create a procedure to update the PIN. The procedure takes Card Number, old PIN and new ValidPIN (Length 4) and print 'Updated PIN' if PIN gets updated or 'Error' otherwise.
+-- (Google it if you don't know how to compare the Length).
+
+create procedure updatepin @cardnum varchar(20),
+@oldpin varchar(4),
+@newpin varchar(4) as begin if len(@newpin) = 4
+and exists (
+    select 1
+    from _Card
+    where cardNum = @cardnum
+        and PIN = @oldpin
+) begin
+update _Card
+set PIN = @newpin
+where cardNum = @cardnum;
+print 'Updated PIN';
+end
+else begin print 'Error'
+end
+end exec updatepin '1324327436569',
+'1770',
+'1111'
+
+-- 8. Create a procedure WithDraw using Login Procedure (Question#6), the procedure will take Card Number, PIN, amount for transaction. Now insert detail of the transaction in Transaction
+-- Table if the transaction is successful with TransType =1(successful Transaction) and next transID (calculate the max transID and increment transID, then insert in table). If the transaction fails
+-- insert TransType=4 (Failed Transaction). Update the balance against the card number accordingly.
+
+create procedure withdraw @cardnum varchar(20),
+@pin varchar(4),
+@amount int as begin
+declare @status int,
+    @balance float,
+    @nexttransid int exec login @cardnum,
+    @pin,
+    @status output if @status = 1 begin
+select @balance = balance
+from _Card
+where cardNum = @cardnum if @balance >= @amount begin
+update _Card
+set balance = balance - @amount
+where cardNum = @cardnum
+select @nexttransid = max(transId) + 1
+from _Transaction
+insert into _Transaction (transId, transDate, cardNum, amount, transType)
+values (
+        @nexttransid,
+        cast(getdate() as date),
+        @cardnum,
+        @amount,
+        1
+    ) print 'Withdrawal Successful'
+end
+else begin
+select @nexttransid = max(transId) + 1
+from _Transaction;
+insert into _Transaction (transId, transDate, cardNum, amount, transType)
+values (
+        @nexttransid,
+        cast(getdate() as date),
+        @cardnum,
+        @amount,
+        4
+    ) print 'Insufficient Balance'
+end
+end
+else begin
+select @nexttransid = max(transId) + 1
+from _Transaction;
+insert into _Transaction (transId, transDate, cardNum, amount, transType)
+values (
+        @nexttransid,
+        cast(getdate() as date),
+        @cardnum,
+        @amount,
+        4
+    ) print 'Invalid Card Details';
+end
+end
+go exec withdraw '1324327436569',
+    '1770',
+    1000
