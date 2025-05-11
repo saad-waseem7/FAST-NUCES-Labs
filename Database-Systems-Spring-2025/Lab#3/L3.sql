@@ -1,3 +1,10 @@
+-- Create database Schema
+USE master;
+GO
+CREATE DATABASE DB123;
+GO
+USE DB123
+
 create table _User(
 userId int primary key,
 name varchar(20) not null,

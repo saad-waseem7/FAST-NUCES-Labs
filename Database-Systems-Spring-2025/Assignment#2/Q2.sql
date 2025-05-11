@@ -1,5 +1,9 @@
+-- Create database Schema
+USE master;
+GO
 CREATE DATABASE New;
-USE New;
+GO
+USE New
 
 CREATE TABLE Users (
     userId NVARCHAR(50) NOT NULL,

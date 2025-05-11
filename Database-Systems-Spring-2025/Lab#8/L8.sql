@@ -1,5 +1,9 @@
-create database ATM
-use ATM
+-- Create database Schema
+USE master;
+GO
+CREATE DATABASE ATM;
+GO
+USE ATM
 
 create table UserType(
 UserTypeID int primary key,

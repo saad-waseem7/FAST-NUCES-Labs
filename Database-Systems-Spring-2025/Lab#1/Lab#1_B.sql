@@ -1,5 +1,9 @@
-create database purchase_management_system
-use purchase_management_system
+-- Create database Schema
+USE master;
+GO
+CREATE DATABASE purchase_management_system;
+GO
+USE purchase_management_system
 
 CREATE TABLE salesman (
     salesman_id INT PRIMARY KEY,

@@ -1,7 +1,8 @@
--- Create database
+-- Create database Schema
+USE master;
+GO
 CREATE DATABASE SuperDogCarbonDB;
 GO
-
 USE SuperDogCarbonDB;
 GO
 

@@ -1,5 +1,9 @@
-Create database twitter
-use twitter
+-- Create database Schema
+USE master;
+GO
+CREATE DATABASE twitter;
+GO
+USE twitter
 
 create table Users
 (

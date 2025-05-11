@@ -1,5 +1,8 @@
+-- Create database Schema
+USE master;
+GO
 CREATE DATABASE Hospital;
-
+GO
 USE Hospital;
 
 CREATE TABLE Doctor (

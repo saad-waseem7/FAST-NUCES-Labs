@@ -1,5 +1,9 @@
-create database Mart;
-use Mart;
+-- Create database Schema
+USE master;
+GO
+CREATE DATABASE Mart;
+GO
+USE Mart
 
 -- Part A: Create basic tables with basic constraints
 create table store (

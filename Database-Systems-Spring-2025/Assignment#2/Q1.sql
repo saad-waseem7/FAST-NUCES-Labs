@@ -1,5 +1,9 @@
-Create Database Branch
-use Branch 
+-- Create database Schema
+USE master;
+GO
+CREATE DATABASE Branch;
+GO
+USE Branch
 
 -- Create Customers Table
 CREATE TABLE Customers (

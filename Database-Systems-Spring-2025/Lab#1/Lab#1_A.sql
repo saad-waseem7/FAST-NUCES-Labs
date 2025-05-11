@@ -1,5 +1,9 @@
-create database university;
-use university;
+-- Create database Schema
+USE master;
+GO
+CREATE DATABASE university;
+GO
+USE university;
 
 -- q#1
 create table student (
