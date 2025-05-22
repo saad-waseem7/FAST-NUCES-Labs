@@ -174,51 +174,45 @@ VALUES
 
 -- Task 1: Insert two rows using a transaction
 
-begin transaction;
+BEGIN TRANSACTION;
+BEGIN TRY
+    INSERT INTO Emission_Record (site_id, record_date, emission_factor)
+    VALUES (101, '2025-05-10', 120.5);
 
-begin try
-    insert into Emission_Record (site_id, record_date, emission_factor)
-    values (101, '2025-05-10', 120.5);
+    INSERT INTO Emission_Record (site_id, record_date, emission_factor)
+    VALUES (102, '2025-05-10', 98.7);
 
-    insert into Emission_Record (site_id, record_date, emission_factor)
-    values (102, '2025-05-10', 98.7);
-
-    commit;
-    print 'Both inserts succeeded.';
-end try
-begin catch
-    rollback;
-    print 'Error occurred, both inserts rolled back.';
-end catch;
+    COMMIT;
+    PRINT 'Both inserts succeeded.';
+END TRY
+BEGIN CATCH
+    ROLLBACK;
+    PRINT 'Error occurred, both inserts rolled back.';
+END CATCH;
 
 --Task 2: Update two tables atomically
 
-alter table Site add total_emissions DECIMAL(12,2) default 0;
-
-begin transaction;
-
-begin try
-    update Site
-    set total_emissions = total_emissions + 50
-    where site_id = 1;
-
-    commit;
-    print 'Emissions updated successfully.';
-end try
-begin catch
-    rollback;
-    print 'Error occurred. Rollback performed.';
+ALTER TABLE Site ADD total_emissions DECIMAL(12,2) DEFAULT 0;
+BEGIN TRANSACTION;
+BEGIN TRY
+    UPDATE Site
+    SET total_emissions = total_emissions + 50
+    WHERE site_id = 1;    COMMIT;
+    PRINT 'Emissions updated successfully.';
+END TRY
+BEGIN CATCH
+    ROLLBACK;
+    PRINT 'Error occurred. Rollback performed.';
 end catch;
 
 -- Task 3: Use SAVEPOINT in insert
 
-begin transaction;
+BEGIN TRANSACTION;
+BEGIN TRY
+    INSERT INTO Emission_Record (site_id, supplier_id, scope_id, source_id, record_date, quantity_used, emission_factor)
+    VALUES (1, 3, 2, 2, '2025-05-10', 6000, 0.5);
 
-begin try
-    insert into Emission_Record (site_id, supplier_id, scope_id, source_id, record_date, quantity_used, emission_factor)
-    values (1, 3, 2, 2, '2025-05-10', 6000, 0.5);
-
-    save transaction SP1;
+    SAVE TRANSACTION SP1;
 
     insert into Emission_Record (site_id, supplier_id, scope_id, source_id, record_date, quantity_used, emission_factor)
     values (NULL, 3, 2, 2, '2025-05-10', 6000, 0.5);
@@ -240,13 +234,11 @@ begin try
     values (2, 2, 1, 1, '2025-05-10', 4500, 2.68);
 
     insert into Emission_Record (site_id, supplier_id, scope_id, source_id, record_date, quantity_used, emission_factor)
-    values (2, NULL, 1, 1, '2025-05-10', 1000, 2.68);
-
-    commit;
-end try
-begin catch
-    rollback;
-    print 'Transaction failed and rolled back.';
+    values (2, NULL, 1, 1, '2025-05-10', 1000, 2.68);    COMMIT;
+END TRY
+BEGIN CATCH
+    ROLLBACK;
+    PRINT 'Transaction failed and rolled back.';
 end catch;
 
 -- Task 5: Manual ROLLBACK test
@@ -257,21 +249,18 @@ update Emission_Record
 set quantity_used = 7777
 where record_id = 1;
 
-select * from Emission_Record where record_id = 1;
-
-rollback;
-
-select * from Emission_Record where record_id = 1;
+SELECT * FROM Emission_Record WHERE record_id = 1;
+ROLLBACK;
+SELECT * FROM Emission_Record WHERE record_id = 1;
 
 -- Task 6: Carbon credit transfer between organizations
 
-create table OrganizationCredits (
+CREATE TABLE OrganizationCredits (
     org_id INT PRIMARY KEY,
     credits INT NOT NULL
 );
 
 begin transaction;
-
 declare @credits INT;
 select @credits = credits from OrganizationCredits where org_id = 1;
 
@@ -290,14 +279,13 @@ end
 
 -- Task 7: Insert into Site and related SiteManager table
 
-create table SiteManagers (
+CREATE TABLE SiteManagers (
     manager_id INT PRIMARY KEY,
     site_id INT FOREIGN KEY REFERENCES Site(site_id),
     name VARCHAR(255)
 );
 
 begin transaction;
-
 begin try
     insert into Site (organization_id, site_name, location)
     values (1, 'EcoCorp Lab', 'Boston');
@@ -317,7 +305,6 @@ end catch;
 --Task 8: Multiple SAVEPOINTs in inserts
 
 begin transaction;
-
 begin try
     insert into Emission_Record (site_id, supplier_id, scope_id, source_id, record_date, quantity_used, emission_factor)
     values (5, 5, 1, 1, '2025-05-10', 1000, 2.68);
@@ -340,12 +327,11 @@ end catch;
 
 -- Task 9: Nested BEGIN TRANSACTION test
 
-begin transaction;
+BEGIN TRANSACTION;
+BEGIN TRY
+    UPDATE Site SET total_emissions = total_emissions + 10 WHERE site_id = 1;
 
-begin try
-    update Site set total_emissions = total_emissions + 10 where site_id = 1;
-
-    begin transaction;
+    BEGIN TRANSACTION;
     update Site set total_emissions = total_emissions + 20 where site_id = 1;
     commit;  
 
@@ -359,83 +345,20 @@ end catch;
 
 -- Task 10: Stored Procedure
 
-create procedure ProcessCarbonData
-as
-begin
-    begin try
-        begin transaction;
+CREATE PROCEDURE ProcessCarbonData
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION;
 
         insert into Emission_Record (site_id, supplier_id, scope_id, source_id, record_date, quantity_used, emission_factor)
         values (3, 3, 1, 1, '2025-05-10', 900, 2.68);
 
         insert into Emission_Record (site_id, supplier_id, scope_id, source_id, record_date, quantity_used, emission_factor)
-        values (NULL, 3, 1, 1, '2025-05-10', 100, 2.68);
-
-        commit;
-    end try
-    begin catch
-        rollback;
-        print 'Procedure failed. Rolled back.';
-    end catch
-end;
-
--- PART # 2
-
--- Step 1: Create the table to store mission attempts
-
-create table MissionDeploy (
-    deploy_id INT IDENTITY(1,1) PRIMARY KEY,
-    team_id INT,            -- 1 for EcoCat, 2 for PandaBytes
-    risk_roll INT,          -- random number from 1 to 6
-    mission_count INT,      -- how many successful missions this team has done
-    success BIT             -- 1 = success, 0 = fail
-);
-
--- Step 2: Run the simulation
--- This is a very simple version of the mission game.
-
-declare @Team1Missions INT = 0;
-declare @Team2Missions INT = 0;
-
-declare @CurrentTeam INT = 1;
-
-declare @Roll INT;
-declare @Success BIT;
-declare @MissionCount INT;
-
-while @Team1Missions < 10 and @Team2Missions < 10
-begin
-    set @Roll = FLOOR(RAND() * 6) + 1;
-
-    if @Roll >= 5
-    begin
-        set @Success = 1;
-
-        if @CurrentTeam = 1
-            set @Team1Missions = @Team1Missions + 1;
-        else
-            set @Team2Missions = @Team2Missions + 1;
-    end
-    else
-        set @Success = 0;
-
-    set @MissionCount = case
-        when @CurrentTeam = 1 then @Team1Missions
-        else @Team2Missions
-    end;
-
-    insert into MissionDeploy (team_id, risk_roll, mission_count, success)
-    values (@CurrentTeam, @Roll, @MissionCount, @Success);
-
-    set @CurrentTeam = case when @CurrentTeam = 1 then 2 else 1 end;
-end
-
--- Print who won
-if @Team1Missions = 10
-    print '🎉 Team EcoCat wins!';
-else
-    print '🎉 Team PandaBytes wins!';
-
--- Step 3: See the results    
-
-select * from MissionDeploy;
+        values (NULL, 3, 1, 1, '2025-05-10', 100, 2.68);        COMMIT;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK;
+        PRINT 'Procedure failed. Rolled back.';
+    END CATCH
+END;
